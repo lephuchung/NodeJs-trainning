@@ -13,4 +13,3 @@ const initWebRoute = (app) =>{
 }
 
 export default initWebRoute;
-
