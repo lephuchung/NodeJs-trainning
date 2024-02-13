@@ -1,21 +1,15 @@
-import connection from '../configs/connectDB.js';
+import pool from '../configs/connectDB.js';
 
-let getHomePage = (req, res) => {
-    let data = [];
-    connection.query(
-        'SELECT * FROM `user`',
-        function(err, results, fields){
-            results.map((row) => {
-                data.push({
-                    id: row.id,
-                    email: row.email,
-                    firstName: row.firstName,
-                    lastName: row.lastName
-                })
-            });
-            return res.render('index.ejs', {dataUser: data});
-        }
-    );
+let getHomePage = async (req, res) => {
+    const [rows, fields] = await pool.execute('SELECT * FROM `user`');
+    return res.render('index.ejs', { dataUser: rows });
 }
 
-export default { getHomePage };
+let getDetailPage = async (req, res) => {
+    let id = req.params.id;
+    let [user] = await pool.execute(`SELECT * FROM user WHERE id = ?`, [id]);
+
+    return res.send(JSON.stringify(user));
+}
+
+export default { getHomePage, getDetailPage };
