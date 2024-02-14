@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
     <title>Document</title>
 </head>
 
@@ -36,8 +36,14 @@
                         <td><%= dataUser[i].lastName%></td>
                         <td>
                             <a href="/detail/user/<%= dataUser[i].id %>" target="_blank">Detail</a>
-                            <button type="button">Update</button>
-                            <button type="button">Delete</button>
+                            <form action="/get-edit-page/<%= dataUser[i].id %>" method="get">
+                                <!-- <input type="text" value="<%= dataUser[i].id %>" name="id" hidden> -->
+                                <button type="submit">Edit</button>
+                            </form>
+                            <form action="/delete-user" method="post">
+                                <input type="text" value="<%= dataUser[i].id %>" name="id" hidden>
+                                <button type="submit">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 <% } %>
@@ -65,7 +71,7 @@
                 <input type="text" name="address">
             </div>
             <div>
-                <button type="submit" style=" margin-top: 15px;">Submit</button>
+                <button type="submit" style=" margin: 15px 0px;">Submit</button>
             </div>
         </form>
     </div>
